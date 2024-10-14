@@ -17,6 +17,13 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
 	Route::get('/', 'IndexController');
 }); // добавил
 
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'], function () {
+	Route::group(['namespace' => 'Main'], function () {
+		Route::get('/', 'IndexController');
+	});
+}); // добавил
+
+
 use Illuminate\Support\Facades\Auth; // добавил
 Auth::routes();
 
