@@ -27,9 +27,21 @@
 			<!-- Small boxes (Stat box) -->
 			<div class="row">
 				<div class="col-12">
-					<form action="#" class="w-25">
+
+					<form action="{{ route('admin.category.store') }}" method="POST" class="w-25">
+						@csrf
+
 						<div class="form-group">
-							<input type="text" class="form-control" name="title" id="title" placeholder="Название категории">
+							<input type="text" class="form-control" name="title" placeholder="Название категории">
+							@error('title')
+							<div class="text-danger">
+								Это поле необходимо заполнить
+								{{-- 
+								или {{ $message }} 
+								Можно использовать $message(будет 'The title field is required', это можно перенастроить на русский), но это тема др.урока
+								--}}
+							</div>
+							@enderror
 							<input type="submit" class="btn btn-primary mt-3" value="Добавить">
 						</div>
 					</form>
