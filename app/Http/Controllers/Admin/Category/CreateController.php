@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Category; // переименовал из ...\Main 
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 
 class CreateController extends Controller
 {
