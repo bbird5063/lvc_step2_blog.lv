@@ -10,6 +10,17 @@
 				<div class="col-sm-6 d-flex align-items-center">
 					<h1 class="m-0">{{$category->title}}</h1>
 					<a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><i class="fas fa-pencil-alt ml-2"></i></a>
+
+					{{-- ССЫЛКА ВСЕГДА НА 'Route::get...', а нам нужно 'Route::delete...'. Поэтому форма --}}
+					<form action="{{ route('admin.category.destroy', $category->id) }}" method="POST">
+						@csrf
+						@method('DELETE')
+						<!--класс bg-transparent и если его задать для nav то элемент будет прозрачным-->
+						<button type="submit" class="border-0 bg-transparent">
+							<i class="fas fa-trash text-danger" role="button"></i>
+						</button>
+					</form>
+
 				</div><!-- /.col -->
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">

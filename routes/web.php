@@ -29,7 +29,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin'],
 		Route::post('/', 'StoreController')->name('admin.category.store');
 		Route::get('/{category}', 'ShowController')->name('admin.category.show');
 		Route::get('/{category}/edit', 'EditController')->name('admin.category.edit');
-		Route::patch('/{category}', 'UpdateController')->name('admin.category.update');  // не забыть в форме @method('PATCH')
+		Route::patch('/{category}', 'UpdateController')->name('admin.category.update');
+		Route::delete('/{category}', 'DestroyController')->name('admin.category.destroy');  // destroy - по конвенции. Почему не delete? Хер его знает. delete только в Route::delete. Controller, name(...) -> destroy
+		/**
+		 * ССЫЛКА ВСЕГДА НА 'Route::get...'
+		 */
 	});
 });
 

@@ -39,9 +39,9 @@
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
-										<th>#</th>
+										<th>ID</th>
 										<th>Название</th>
-										<th colspan="2" class="text-center">Действия</th> <!-- colspan="2", class="text-center" -->
+										<th colspan="3" class="text-center">Действия</th> <!-- colspan="3", class="text-center" -->
 									</tr>
 								</thead>
 								<tbody>
@@ -51,6 +51,17 @@
 										<td>{{ $category->title }}</td>
 										<td><a href="{{ route('admin.category.show', $category->id) }}"><i class="far fa-eye"></i></a></td>
 										<td><a href="{{ route('admin.category.edit', $category->id) }}" class="text-success"><i class="fas fa-pencil-alt"></i></a></td>
+
+										{{-- ССЫЛКА ВСЕГДА НА 'Route::get...', а нам нужно 'Route::delete...'. Поэтому форма --}}
+										<td>
+											<form action="{{ route('admin.category.destroy', $category->id) }}" method="POST">
+												@csrf
+												@method('DELETE')
+												<!--класс bg-transparent и если его задать для nav то элемент будет прозрачным-->
+												<button type="submit" class="border-0 bg-transparent">
+													<i class="fas fa-trash text-danger" role="button"></i>
+												</button>
+											</form>
 									</tr>
 									@endforeach
 								</tbody>
