@@ -11,6 +11,6 @@ class IndexController extends Controller
   public function __invoke()
 	{
 		$categories = Category::all(); // добавил
-		return view('admin.categories.index', compact('categories'));  // добавил compact('categories') - АРГУМЕНТ СТРОКОВЫЙ!
+		return view('admin.category.index', compact('categories'));  // добавил compact('categories') - АРГУМЕНТ СТРОКОВЫЙ!
 	}
 }

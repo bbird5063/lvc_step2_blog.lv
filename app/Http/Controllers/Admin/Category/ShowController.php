@@ -16,6 +16,6 @@ class ShowController extends Controller
 		 */
 		//dd($category);
 		
-		return view('admin.categories.show', compact('category'));  // изменил .index на .show, compact('categories') на compact('category')
+		return view('admin.category.show', compact('category'));  // изменил .index на .show, compact('categories') на compact('category')
 	}
 }
