@@ -11,6 +11,7 @@ class StoreController extends Controller
 	public function __invoke(StoreRequest $request)
 	{
 		$data = $request->validated();
+		//dd($data);
 		//Post::create($data); // по такому методу можно нарушить уникальность(т.к. в БД мы на указали уникльность поля 'title')
 		Post::firstOrCreate($data);
 		/**
