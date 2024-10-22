@@ -25,8 +25,9 @@ class StoreRequest extends FormRequest
 		return [
 			'title' => 'required|string', 
 			'content' => 'required|string',
-			'preview_image' => 'required|file', // добавили
-			'main_image' => 'required|file', // добавили
+			'preview_image' => 'required|file',
+			'main_image' => 'required|file',
+			'category_id' => 'required|exists:categories,id', // добавили(существует в табл.'categories', поле 'id')
 		];
 	}
 }

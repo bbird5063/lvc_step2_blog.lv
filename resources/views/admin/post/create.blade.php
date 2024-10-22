@@ -52,7 +52,6 @@
 							</div>
 							@enderror
 						</div>
-
 						<div class="form-group w-50">
 							<label for="exampleInputFile">Добавить превью</label>
 							<div class="input-group">
@@ -64,6 +63,11 @@
 									<span class="input-group-text">Загрузка</span>
 								</div>
 							</div>
+							@error('preview_image')
+							<div class="text-danger">
+								Это поле необходимо заполнить
+							</div>
+							@enderror
 						</div>
 						<div class="form-group w-50">
 							<label for="exampleInputFile">Добавить главное изображение</label>
@@ -76,6 +80,24 @@
 									<span class="input-group-text">Загрузка</span>
 								</div>
 							</div>
+							@error('main_image')
+							<div class="text-danger">
+								Это поле необходимо заполнить
+							</div>
+							@enderror
+						</div>
+
+						<div class="form-group">
+							<label>Выберите категорию</label>
+							<!--<select class="form-control" name="category_id" value="{{ old('category_id') }}"> ТАК "old('category_id')" НЕ РАБОТАЕТ-->
+							<select class="form-control" name="category_id">
+
+								@foreach($categories as $category)
+								<option value="{{ $category->id }}"
+									{{ $category->id == old('category_id') ? ' selected' : '' }}>
+									{{ $category->title }}</option>
+								@endforeach
+							</select>
 						</div>
 
 

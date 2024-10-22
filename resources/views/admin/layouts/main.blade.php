@@ -133,12 +133,20 @@
 				]
 			});
 		});
-		
+
 		// Инициация:
 		$(function() {
 			bsCustomFileInput.init();
 		});
 	</script>
+
+	<!--Вместо "Browse" -> "..."-->
+	<style>
+		.custom-file-input:lang(en)~.custom-file-label::after {
+			content: "...";
+		}
+	</style>
+
 </body>
 
 </html>
