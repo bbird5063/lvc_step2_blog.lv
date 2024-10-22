@@ -101,6 +101,10 @@
 	<!-- daterangepicker -->
 	<script src="{{ asset('plugins/moment/moment.min.js') }}"></script>
 	<script src="{{ asset('plugins/daterangepicker/daterangepicker.js') }}"></script>
+
+	<!-- bs-custom-file-input -->
+	<script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
+
 	<!-- Tempusdominus Bootstrap 4 -->
 	<!--<script src="{{ asset('plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js') }}"></script>-->
 	<!-- Summernote -->
@@ -128,6 +132,11 @@
 					['height', ['height']]
 				]
 			});
+		});
+		
+		// Инициация:
+		$(function() {
+			bsCustomFileInput.init();
 		});
 	</script>
 </body>

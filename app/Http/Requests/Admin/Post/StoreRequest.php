@@ -21,9 +21,12 @@ class StoreRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		//dd('реквест');
 		return [
 			'title' => 'required|string', 
-			'content' => 'required|string', // добавили
+			'content' => 'required|string',
+			'preview_image' => 'required|file', // добавили
+			'main_image' => 'required|file', // добавили
 		];
 	}
 }
