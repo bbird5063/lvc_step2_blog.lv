@@ -21,13 +21,14 @@ class StoreRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
-		//dd('реквест');
 		return [
 			'title' => 'required|string', 
 			'content' => 'required|string',
 			'preview_image' => 'required|file',
 			'main_image' => 'required|file',
-			'category_id' => 'required|exists:categories,id', // добавили(существует в табл.'categories', поле 'id')
+			'category_id' => 'required|integer|exists:categories,id',
+			'tag_ids' => 'nullable|array', // name = "tag_ids[]"
+			'tag_ids.*' => 'nullable|integer|exists:tags,id', // 'tag_ids.*' - все элементы tag_ids[]
 		];
 	}
 }
