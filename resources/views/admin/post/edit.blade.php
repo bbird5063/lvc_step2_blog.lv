@@ -28,21 +28,107 @@
 			<div class="row">
 				<div class="col-12">
 
-					<form action="{{ route('admin.post.update', $post->id) }}" method="POST" class="w-25">
+					<!--Обязательно enctype="multipart/form-data"-->
+					<form action="{{ route('admin.post.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+						<!--убрали class="w-25"-->
 						@csrf
-						@method('PATCH') {{-- НЕ ЗАБЫВАТЬ ПРИ Route::patch! --}}
-
+						@method('PATCH') <!-- НЕ ЗАБЫВАТЬ @method('PATCH')! -->
 						<div class="form-group">
-							<input type="text" class="form-control" name="title" placeholder="Название поста" value="{{ $post->title }}">
+							<input type="text" class="form-control w-25" name="title" placeholder="Название поста" value="{{ $post->title }}">
 							@error('title')
 							<div class="text-danger">
 								Это поле необходимо заполнить
-								{{-- 
-								или {{ $message }} 
+								{{--
+								или {{ $message }}
 								Можно использовать $message(будет 'The title field is required', это можно перенастроить на русский), но это тема др.урока
 								--}}
 							</div>
 							@enderror
+						</div>
+						<!--добавили контент-->
+						<div class="form-group">
+							<!-- Вставили и изменили name="editordata" -->
+							<textarea id="summernote" name="content">{{ $post->content }}</textarea>
+							@error('content')
+							<div class="text-danger">
+								Это поле необходимо заполнить
+							</div>
+							@enderror
+						</div>
+						<div class="form-group w-50">
+							<label for="exampleInputFile">Добавить превью</label>
+							<div class="w-25">
+								<img src="{{ url('storage/' . $post->preview_image) }}" alt="preview_image" class="w-50">								
+							</div>
+							<div class="input-group">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" name="preview_image">
+									<label class="custom-file-label">Выберите изображение</label>
+								</div>
+								<div class="input-group-append">
+									<span class="input-group-text">Загрузка</span>
+								</div>
+							</div>
+							@error('preview_image')
+							<div class="text-danger">
+								Это поле необходимо заполнить
+							</div>
+							@enderror
+						</div>
+						<div class="form-group w-50">
+							<label for="exampleInputFile">Добавить главное изображение</label>
+							<div class="w-50">
+								<img src="{{ url('storage/' . $post->main_image) }}" alt="main_image" class="w-50">
+							</div>
+							<div class="input-group">
+								<div class="custom-file">
+									<input type="file" class="custom-file-input" name="main_image">
+									<label class="custom-file-label">Выберите изображение</label>
+								</div>
+								<div class="input-group-append">
+									<span class="input-group-text">Загрузка</span>
+								</div>
+							</div>
+							@error('main_image')
+							<div class="text-danger">
+								Это поле необходимо заполнить
+							</div>
+							@enderror
+						</div>
+
+						<div class="form-group">
+							<label>Выберите категорию</label>
+							<!--<select class="form-control" name="category_id" value="{{ old('category_id') }}"> ТАК "old('category_id')" НЕ РАБОТАЕТ-->
+							<select class="form-control" name="category_id">
+
+								@foreach($categories as $category)
+								<option
+									{{ $category->id == $post->category_id ? ' selected' : '' }} value="{{ $category->id }}">
+									{{ $category->title }}
+								</option>
+								@endforeach
+							</select>
+						</div>
+
+						<div class="form-group">
+							<label>Тэги</label>
+							<select class="select2" name="tag_ids[]" multiple="multiple" data-placeholder="Выберите тэги" style="width: 100%;">
+								@foreach($tags as $tag)
+								<!--изменяем old('tag_ids') на $post->tags, но нам нужны только 'id', поэтому добавляем еще '->pluck'. (tags это модель)
+								В итоге: $post->tags->pluck('id').
+								LV:pluck('id') соответствует PHP:array_column(array, 'id')/
+								Эти функции соберут в новый массив только 'id'.
+								Еще нужен '->toArray()'
+								В итоге: $post->tags->pluck('id')->toArray().
+								-->
+								<option
+									{{ is_array($post->tags->pluck('id')->toArray()) && in_array($tag->id, $post->tags->pluck('id')->toArray()) ? ' selected' : '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
+								<!--<option value="{{ $tag->id }}">{{ $tag->title }}</option>-->
+								@endforeach
+							</select>
+						</div>
+
+						<div class="form-group">
 							<input type="submit" class="btn btn-primary mt-3" value="Обновить">
 						</div>
 					</form>

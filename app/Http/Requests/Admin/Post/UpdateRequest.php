@@ -22,8 +22,13 @@ class UpdateRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'title' => 'required|string',
-			'content' => 'required|string', // добавили
+			'title' => 'required|string', 
+			'content' => 'required|string',
+			'preview_image' => 'nullable|file', // меняю required на nullable
+			'main_image' => 'nullable|file', // меняю required на nullable
+			'category_id' => 'required|integer|exists:categories,id',
+			'tag_ids' => 'nullable|array', // name = "tag_ids[]"
+			'tag_ids.*' => 'nullable|integer|exists:tags,id', // 'tag_ids.*' - все элементы tag_ids[]
 		];
 	}
 }
