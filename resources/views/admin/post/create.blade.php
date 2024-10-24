@@ -33,13 +33,7 @@
 						<div class="form-group">
 							<input type="text" class="form-control w-25" name="title" placeholder="Название поста" value="{{ old('title') }}">
 							@error('title')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-								{{--
-								или {{ $message }}
-								Можно использовать $message(будет 'The title field is required', это можно перенастроить на русский), но это тема др.урока
-								--}}
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<!--добавили контент-->
@@ -47,9 +41,7 @@
 							<!-- Вставили и изменили name="editordata" -->
 							<textarea id="summernote" name="content">{{ old('content') }}</textarea>
 							@error('content')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<div class="form-group w-50">
@@ -64,9 +56,7 @@
 								</div>
 							</div>
 							@error('preview_image')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<div class="form-group w-50">
@@ -81,9 +71,7 @@
 								</div>
 							</div>
 							@error('main_image')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 
@@ -93,23 +81,30 @@
 							<select class="form-control" name="category_id">
 
 								@foreach($categories as $category)
-								<option 
+								<option
 									{{ $category->id == old('category_id') ? ' selected' : '' }} value="{{ $category->id }}">
 									{{ $category->title }}
 								</option>
 								@endforeach
 							</select>
+							@error('category_id')
+							<div class="text-danger">{{ $message }}</div>
+							@enderror
 						</div>
 
 						<div class="form-group">
 							<label>Тэги</label>
 							<select class="select2" name="tag_ids[]" multiple="multiple" data-placeholder="Выберите тэги" style="width: 100%;">
 								@foreach($tags as $tag)
-								<option 
-								{{ is_array(old('tag_ids')) && in_array($tag->id, old('tag_ids')) ? ' selected' : '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
+								<option
+									{{ is_array(old('tag_ids')) && in_array($tag->id, old('tag_ids')) ? ' selected' : '' }} value="{{ $tag->id }}">{{ $tag->title }}</option>
 								<!--<option value="{{ $tag->id }}">{{ $tag->title }}</option>-->
 								@endforeach
 							</select>
+							<!--'...name="tag_ids[]..."' ->'tag_ids' без '[]'-->
+							@error('tag_ids')
+							<div class="text-danger">{{ $message }}</div>
+							@enderror
 						</div>
 
 						<div class="form-group">

@@ -36,13 +36,7 @@
 						<div class="form-group">
 							<input type="text" class="form-control w-25" name="title" placeholder="Название поста" value="{{ $post->title }}">
 							@error('title')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-								{{--
-								или {{ $message }}
-								Можно использовать $message(будет 'The title field is required', это можно перенастроить на русский), но это тема др.урока
-								--}}
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<!--добавили контент-->
@@ -50,15 +44,13 @@
 							<!-- Вставили и изменили name="editordata" -->
 							<textarea id="summernote" name="content">{{ $post->content }}</textarea>
 							@error('content')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<div class="form-group w-50">
 							<label for="exampleInputFile">Добавить превью</label>
 							<div class="w-25">
-								<img src="{{ url('storage/' . $post->preview_image) }}" alt="preview_image" class="w-50">								
+								<img src="{{ url('storage/' . $post->preview_image) }}" alt="preview_image" class="w-50">
 							</div>
 							<div class="input-group">
 								<div class="custom-file">
@@ -70,9 +62,7 @@
 								</div>
 							</div>
 							@error('preview_image')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 						<div class="form-group w-50">
@@ -90,9 +80,7 @@
 								</div>
 							</div>
 							@error('main_image')
-							<div class="text-danger">
-								Это поле необходимо заполнить
-							</div>
+							<div class="text-danger">{{ $message }}</div>
 							@enderror
 						</div>
 
@@ -108,6 +96,9 @@
 								</option>
 								@endforeach
 							</select>
+							@error('category_id')
+							<div class="text-danger">{{ $message }}</div>
+							@enderror
 						</div>
 
 						<div class="form-group">
@@ -126,6 +117,10 @@
 								<!--<option value="{{ $tag->id }}">{{ $tag->title }}</option>-->
 								@endforeach
 							</select>
+							<!--'...name="tag_ids[]..."' ->'tag_ids' без '[]'-->
+							@error('tag_ids')
+							<div class="text-danger">{{ $message }}</div>
+							@enderror
 						</div>
 
 						<div class="form-group">
