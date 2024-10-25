@@ -37,14 +37,21 @@
 							@error('name')
 							<div class="text-danger">
 								Это поле необходимо заполнить
-								{{-- 
-								или {{ $message }} 
+								{{--
+								или {{ $message }}
 								Можно использовать $message(будет 'The name field is required', это можно перенастроить на русский), но это тема др.урока
 								--}}
 							</div>
 							@enderror
-							<input type="submit" class="btn btn-primary mt-3" value="Обновить">
 						</div>
+
+						<div class="form-group"> <!--ВСТАВИЛИ-->
+							<input type="text" class="form-control" name="email" placeholder="Email" value="{{ $user->email }}">
+							@error('email')
+							<div class="text-danger">{{ $message }}</div>
+							@enderror
+						</div>
+						<input type="submit" class="btn btn-primary mt-3" value="Обновить">
 					</form>
 				</div>
 			</div>
