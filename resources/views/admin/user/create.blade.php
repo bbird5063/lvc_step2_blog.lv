@@ -49,6 +49,21 @@
 							<div class="text-danger">Это поле необходимо заполнить</div>
 							@enderror
 						</div>
+						<div class="form-group">
+							<label>Выберите пользователя</label>
+							<select class="form-control" name="role">
+
+								@foreach($roles as $id => $role)
+								<option
+									{{ $id == old('role') ? ' selected' : '' }} value="{{ $id }}">
+									{{ $role }}
+								</option>
+								@endforeach
+							</select>
+							@error('role')
+							<div class="text-danger">{{ $message }}</div>
+							@enderror
+						</div>
 						<input type="submit" class="btn btn-primary mt-3" value="Добавить">
 					</form>
 				</div>

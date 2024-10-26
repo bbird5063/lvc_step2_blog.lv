@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Exists;
 
 class UpdateRequest extends FormRequest
 {
@@ -21,10 +22,20 @@ class UpdateRequest extends FormRequest
 	 */
 	public function rules(): array
 	{
+		//dd($this->user_id); // мы можем получить любой атрибут
 		return [
 			'name' => 'required|string',
-			'email' => 'required|string|email|unique:users',
-			//'password' => 'required|string', // в update password менять не будем
+			/**
+			 * Откуда мы берем $this->user_id? См.выше dd($this->user_id)
+			 * email' => ...
+			 * |unique:users - уникальный в табл.users
+			 * ,email,X - ингорирум поля с id=X (поле <input type="hidden" name="user_id" value="{{ $user->id }}">)
+			 */
+			//'email' => 'required|string|email|unique:users', // было
+			'email' => 'required|string|email|unique:users,email,' . $this->user_id,
+			'user_id' => 'required|integer|exists:users,id',
+
+			'role' => 'required|integer',
 		];
 	}
 
@@ -38,7 +49,7 @@ class UpdateRequest extends FormRequest
 			'email.string' => 'Данные должны соответствовать строчному типу',
 			'email.email' => 'Данные должны соответствовать формату mail@some.domain',
 			'email.unique' => 'Пользователь с таким email уже существует',
+			'role.required' => 'Это поле необходимо для заполнения',
 		];
 	}
-
 }

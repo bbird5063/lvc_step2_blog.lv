@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Admin\User;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Ramsey\Uuid\Type\Integer;
 
 class StoreRequest extends FormRequest
 {
@@ -25,6 +26,7 @@ class StoreRequest extends FormRequest
 			'name' => 'required|string',
 			'email' => 'required|string|email|unique:users', // ДОБАВИЛИ 'unique:users'
 			'password' => 'required|string',
+			'role' => 'required|integer',
 		];
 	}
 
@@ -39,6 +41,7 @@ class StoreRequest extends FormRequest
 			'email.unique' => 'Пользователь с таким email уже существует',
 			'password.required' => 'Это поле необходимо для заполнения',
 			'password.string' => 'Данные должны соответствовать строчному типу',
+			'role.required' => 'Это поле необходимо для заполнения',
 		];
 	}
 
