@@ -13,13 +13,11 @@ class User extends Authenticatable
 {
 	use HasApiTokens, HasFactory, Notifiable, SoftDeletes; // SoftDeletes ДОБАВИЛИ (LVC: 'HasApiTokens' нет)
 
-	//const ROLE_NULL = null; // проба ХУЙНЯ
 	const ROLE_ADMIN = 0;
 	const ROLE_READER = 1; // ПОСЕТИТЕЛИ (читатель)
 	public static function getRoles()
 	{ // непинг(?)
 		return [
-			//self::ROLE_NULL => '<не определено>', // проба ХУЙНЯ
 			self::ROLE_ADMIN => 'Админ',
 			self::ROLE_READER => 'Читатель',
 		];

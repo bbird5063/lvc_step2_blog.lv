@@ -52,7 +52,7 @@
 										<td>{{$user->id}}</td>
 									</tr>
 									<tr>
-										<td>Название</td>
+										<td>Имя</td>
 										<td>{{$user->name}}</td>
 									</tr>
 								</tbody>
