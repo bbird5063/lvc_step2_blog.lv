@@ -17,8 +17,8 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
 	Route::get('/', 'IndexController');
 }); // добавил
 
-// Проверка пользователя: 'middleware' => ['auth', 'admin']
-Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
+// Проверка пользователя: 'middleware' => ['auth', 'admin','verified']
+Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
 	Route::group(['namespace' => 'Main'], function () {
 		Route::get('/', 'IndexController');
 	});
@@ -69,7 +69,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 
 });
 
 
-use Illuminate\Support\Facades\Auth; // добавил
-Auth::routes();
+use Illuminate\Support\Facades\Auth;
+Auth::routes(['verify' => true]); // ДОБАВИЛИ ['verify' => true]
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

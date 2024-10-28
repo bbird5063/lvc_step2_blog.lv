@@ -3,20 +3,22 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Contracts\Auth\MustVerifyEmail; // ДОБАВИЛСЯ
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Illuminate\Database\Eloquent\SoftDeletes; // ДОБАВИЛИ
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail  // ДОБАВИЛИ implements(interface)
 {
-	use HasApiTokens, HasFactory, Notifiable, SoftDeletes; // SoftDeletes ДОБАВИЛИ (LVC: 'HasApiTokens' нет)
+	use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
 	const ROLE_ADMIN = 0;
-	const ROLE_READER = 1; // ПОСЕТИТЕЛИ (читатель)
+	const ROLE_READER = 1;
 	public static function getRoles()
-	{ // непинг(?)
+	{
 		return [
 			self::ROLE_ADMIN => 'Админ',
 			self::ROLE_READER => 'Читатель',

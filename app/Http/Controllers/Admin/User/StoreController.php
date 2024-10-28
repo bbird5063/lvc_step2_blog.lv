@@ -4,17 +4,29 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\StoreRequest;
+use App\Mail\User\PasswordMail; // добавился сам
 use App\Models\User;
+use Illuminate\Auth\Events\Registered; //  добавился сам
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail; // добавился сам
+use Illuminate\Support\Str; // добавили
 
 class StoreController extends Controller
 {
 	public function __invoke(StoreRequest $request)
 	{
 		$data = $request->validated();
-		$data['password'] = Hash::make($data['password']); // переназначаем
+
+		// Создаем пароль:
+		$password = Str::random(10);
+		$data['password'] = Hash::make($password);
 		//dd($data);
-		User::firstOrCreate(['email'=>$data['email']], $data); // 1 аргумент-признак, email: UNIQ
+		$user = User::firstOrCreate(['email' => $data['email']], $data); // 1 аргумент-признак, email: UNIQ, '$user=' для хелпера event(new Registered($user)) $user обязательно модель
+
+		// ПОСЛЕ создания аккаунта - отправляем пароль:
+		Mail::to($data['email'])->send(new PasswordMail($password));
+
+		event(new Registered($user)); // event хелпер, который запускает определенный триггер связаный со сценарием(Registered), $user обязательно модель
 
 		return redirect()->route('admin.user.index');
 	}
