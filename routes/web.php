@@ -20,7 +20,7 @@ Route::group(['namespace' => 'App\Http\Controllers\Main'], function () {
 // Проверка пользователя: 'middleware' => ['auth', 'admin','verified']
 Route::group(['namespace' => 'App\Http\Controllers\Admin', 'prefix' => 'admin', 'middleware' => ['auth', 'admin','verified']], function () {
 	Route::group(['namespace' => 'Main'], function () {
-		Route::get('/', 'IndexController');
+		Route::get('/', 'IndexController')->name('admin.main.index');
 	});
 
 	/** ПОРЯДОК ОЧЕНЬ ВАЖЕН */

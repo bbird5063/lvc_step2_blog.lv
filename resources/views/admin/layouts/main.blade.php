@@ -54,6 +54,9 @@
 				</ul>
 
 				<ul class="navbar-nav">
+					<!--<li class="nav-item">
+						{{ __('Login') }}
+					</li ВЫЛАЗИТ 'login' -->
 					<li class="nav-item">
 						<form method="post" action="{{ route('logout') }}">
 							@csrf
