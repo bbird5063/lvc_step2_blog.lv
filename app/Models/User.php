@@ -10,6 +10,8 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+use App\Models\Post;
+
 class User extends Authenticatable implements MustVerifyEmail
 {
 	use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
@@ -60,5 +62,21 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function sendEmailVerificationNotification() 
 	{
 		$this->notify(new SendVerifyWithQueueNotification());
+	}
+
+	public function likedPosts()
+	{
+		/**
+		 * belongsToMany()
+		 * -----------------
+		 * $related = Post::class // данные из какой таблицы берем данные
+		 * $table = 'post_user_likes' // через какую таблицу
+		 * $foreignPivotKey = 'user_id' // соответвие id этой модели(User)
+		 * $relatedPivotKey = 'post_id' // соответвие id модели, из которой берем данные(Post)
+		 * $parentKey = null
+		 * $relatedKey = null
+		 * $relation = null
+		 */
+		return $this->belongsToMany(Post::class, 'post_user_likes', 'user_id', 'post_id');
 	}
 }

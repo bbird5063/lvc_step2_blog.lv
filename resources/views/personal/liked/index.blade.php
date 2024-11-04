@@ -12,6 +12,7 @@
 				</div><!-- /.col -->
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="{{ route('personal.main.index') }}">Главная</a></li>
 						<li class="breadcrumb-item active">Понравившиеся посты</li>
 					</ol>
 				</div><!-- /.col -->
@@ -26,10 +27,39 @@
 			<!-- Small boxes (Stat box) -->
 			<div class="row">
 
+				<div class="card-body table-responsive p-0">
+					<table class="table table-hover text-nowrap">
+						<thead>
+							<tr>
+								<th>ID</th>
+								<th>Название</th>
+								<th colspan="2" class="text-center">Действия</th> <!-- colspan="3", class="text-center" -->
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($posts as $post)
+							<tr>
+								<td>{{ $post->id }}</td>
+								<td>{{ $post->title }}</td>
+								<td><a href="{{ route('admin.post.show', $post->id) }}"><i class="far fa-eye"></i></a></td>
 
-			</div>
-			<!-- /.row -->
-		</div><!-- /.container-fluid -->
+								{{-- ССЫЛКА ВСЕГДА НА 'Route::get...', а нам нужно 'Route::delete...'. Поэтому форма --}}
+								<td>
+									<form action="{{ route('personal.liked.destroy', $post->id) }}" method="POST">
+										@csrf
+										@method('DELETE')
+										<!--класс bg-transparent и если его задать для nav то элемент будет прозрачным-->
+										<button type="submit" class="border-0 bg-transparent">
+											<i class="fas fa-trash text-danger" role="button"></i>
+										</button>
+									</form>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>
+				</div>
+				<!-- /.row -->
+			</div><!-- /.container-fluid -->
 	</section>
 	<!-- /.content -->
 </div>
