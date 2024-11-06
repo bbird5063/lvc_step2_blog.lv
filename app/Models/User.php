@@ -10,7 +10,9 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-use App\Models\Post;
+// Не нужно:
+//use App\Models\Post;
+//use App\Models\Comment;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -67,7 +69,7 @@ class User extends Authenticatable implements MustVerifyEmail
 	public function likedPosts()
 	{
 		/**
-		 * belongsToMany()
+		 * belongsToMany() // многие-ко-многим
 		 * -----------------
 		 * $related = Post::class // данные из какой таблицы берем данные
 		 * $table = 'post_user_likes' // через какую таблицу
@@ -78,5 +80,17 @@ class User extends Authenticatable implements MustVerifyEmail
 		 * $relation = null
 		 */
 		return $this->belongsToMany(Post::class, 'post_user_likes', 'user_id', 'post_id');
+	}
+
+	public function comments() 
+	{
+		/**
+		 * hasMany() // один-ко-многим
+		 * --------------------
+		 * $related = Comment::class
+		 * $foreignKey = 'user_id'
+		 * $localKey = 'id'
+		 */
+		return $this->hasMany(Comment::class, 'user_id', 'id');
 	}
 }
