@@ -28,6 +28,40 @@ class Post extends Model
 		 * $relation = null)
 		 */
 		return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
-
 	}
+
+	public function category() {
+		/**
+		 * belongsTo // 'Один К' (имя связанного столбца в родительской таблице)
+		 * $related = Category::class (связанный)
+		 * $foreignKey = 'category_id' (внешний ключ)
+		 * $ownerKey = 'id' (ключ владельца)
+		 * 
+		 * $relation = null
+		 */
+		//$return = $this->belongsTo(Category::class, 'category_id', 'id');
+		//dd($return);
+		return $this->belongsTo(Category::class, 'category_id', 'id');
+	}
+
+	public function likedUsers() {
+		//отношение
+		/**
+		 * belongsToMany(аргументы):
+		 * --------------------------
+		 * ($related = User::class, // с кем связываемся(модель)
+		 * $table = 'post_users', // таблица связи 
+		 * $foreignPivotKey = 'post_id', // наш id в этой таблице
+		 * $relatedPivotKey = 'user_id',  // id, с кем связываемся в этой таблице
+		 * 
+		 * $parentKey = null, 
+		 * $relatedKey = null, 
+		 * $relation = null)
+		 */
+
+		//$return = $this->belongsToMany(User::class, 'post_user_likes', 'post_id', 'user_id');
+		//dd($return);
+		return $this->belongsToMany(User::class, 'post_user_likes', 'post_id', 'user_id');
+	}
+
 }

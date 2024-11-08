@@ -16,8 +16,11 @@ class UpdateController extends BaseController
 		 * Т.к. нам нужен '$post' (return view('admin.post.show', compact('post'));), 
 		 * PostService@update нам вернет '$post' (return $post), поэтому мы здесь получаем '$post':
 		 */
-		$post = $this->service->update($data, $post);
 
+		//dd($data, $post);
+		//dd($post);
+		$post = $this->service->update($data, $post);
+		
 		return view('admin.post.show', compact('post'));
 	}
 }

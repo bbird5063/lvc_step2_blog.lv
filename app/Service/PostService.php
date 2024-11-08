@@ -21,7 +21,7 @@ class PostService
 			$data['preview_image'] = Storage::disk('public')->put('/images', $data['preview_image']);
 			$data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
 			$post = Post::firstOrCreate($data); // получаем наш пост
-			if (isset($data['tag_ids'])) { // ДОБАВИЛИ
+			if (isset($tagIds)) {
 				$post->tags()->attach($tagIds); // tags() в модели Post
 			}
 			DB::commit();
@@ -46,9 +46,10 @@ class PostService
 				$data['main_image'] = Storage::disk('public')->put('/images', $data['main_image']);
 
 			$post->update($data);
-			if (isset($data['tag_ids'])) // ДОБАВИЛИ
-				$post->tags()->sync($tagIds); // в отличие от store в update метод sync(он удаляет не нужные привязки и добавляем те, которые мы указали)
 
+
+			if (isset($tagIds))
+				$post->tags()->sync($tagIds); // в отличие от store в update метод sync(он удаляет не нужные привязки и добавляем те, которые мы указали)
 			DB::commit();
 		} catch (\Exception $exception) {
 			DB::rollBack();
