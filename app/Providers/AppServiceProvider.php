@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon; // ДОБАВИЛИ
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator; // ДОБАВИЛИ
 
@@ -20,6 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+			Carbon::setLocale('ru_RU');
 			Paginator::useBootstrapFive();
 			Paginator::useBootstrapFour();
 		}
