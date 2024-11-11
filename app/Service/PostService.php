@@ -48,8 +48,9 @@ class PostService
 			$post->update($data);
 
 
-			if (isset($tagIds))
+			if (isset($tagIds)) {
 				$post->tags()->sync($tagIds); // в отличие от store в update метод sync(он удаляет не нужные привязки и добавляем те, которые мы указали)
+			}
 			DB::commit();
 		} catch (\Exception $exception) {
 			DB::rollBack();

@@ -13,7 +13,8 @@ class Post extends Model
 	protected $guarded = false;  // НУЖНО! либо false, либо [] (Защита массового присвоения) Чтобы мы могли изменять данные в табл.
 	protected $table = 'posts'; // LV и так привязывает, но так принято
 
-	public function tags() {
+	public function tags()
+	{
 		//отношение
 		/**
 		 * belongsToMany(аргументы):
@@ -30,7 +31,8 @@ class Post extends Model
 		return $this->belongsToMany(Tag::class, 'post_tags', 'post_id', 'tag_id');
 	}
 
-	public function category() {
+	public function category()
+	{
 		/**
 		 * belongsTo // 'Один К' (имя связанного столбца в родительской таблице)
 		 * $related = Category::class (связанный)
@@ -44,10 +46,11 @@ class Post extends Model
 		return $this->belongsTo(Category::class, 'category_id', 'id');
 	}
 
-	public function likedUsers() {
+	public function likedUsers()
+	{
 		//отношение
 		/**
-		 * belongsToMany(аргументы):
+		 * belongsToMany // 'принадлежит многим'
 		 * --------------------------
 		 * ($related = User::class, // с кем связываемся(модель)
 		 * $table = 'post_users', // таблица связи 
@@ -61,7 +64,7 @@ class Post extends Model
 		return $this->belongsToMany(User::class, 'post_user_likes', 'post_id', 'user_id');
 	}
 
-	public function comments() 
+	public function comments()
 	{
 		/**
 		 * hasMany() // один-ко-многим
@@ -70,7 +73,6 @@ class Post extends Model
 		 * $foreignKey = 'post_id'
 		 * $localKey = 'id'
 		 */
-		return $this->hasMany(Comment::class, 'user_id', 'id');
+		return $this->hasMany(Comment::class, 'post_id', 'id');
 	}
-
 }

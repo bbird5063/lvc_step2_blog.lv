@@ -16,6 +16,8 @@ class ShowController extends Controller
 			->where('id', '!=', $post->id) // чтобы в коллекцию не попадал текущий пост
 			->get()
 			->take(3);
+//dd($post->comments);
+
 		return view('post.show', compact('post', 'date', 'relatedPosts'));
 	}
 }
