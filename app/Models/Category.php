@@ -13,4 +13,9 @@ class Category extends Model
 	protected $guarded = false;  // НУЖНО! либо false, либо [] (Защита массового присвоения) Чтобы мы могли изменять данные в табл.
 	protected $table = 'categories'; // LV и так привязывает, но так принято
 
+	public function posts() // сделал сам
+	{
+		return $this->hasMany(Post::class, 'category_id', 'id');
+	}
+
 }

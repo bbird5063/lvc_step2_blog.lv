@@ -30,16 +30,19 @@
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('main.index') }}">Блог</a>
 						</li>
-						@guest
 						<li class="nav-item">
-							<a class="nav-link" href="{{ route('main.index') }}">Войти</a>
+							<a class="nav-link" href="{{ route('category.index') }}">Категории</a>
 						</li>
-						@endguest
 						@auth
 						<li class="nav-item">
 							<a class="nav-link" href="{{ route('main.index') }}">Личный кабинет</a>
 						</li>
 						@endauth
+						@guest
+						<li class="nav-item">
+							<a class="nav-link" href="{{ route('main.index') }}">Войти</a>
+						</li>
+						@endguest
 					</ul>
 
 				</div>

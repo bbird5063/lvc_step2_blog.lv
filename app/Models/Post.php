@@ -12,6 +12,7 @@ class Post extends Model
 	use SoftDeletes;  // ДОБАВИЛИ
 	protected $guarded = false;  // НУЖНО! либо false, либо [] (Защита массового присвоения) Чтобы мы могли изменять данные в табл.
 	protected $table = 'posts'; // LV и так привязывает, но так принято
+	protected $withCount = ['likedUsers']; // отношения, которые должны быть посчитаны
 
 	public function tags()
 	{
