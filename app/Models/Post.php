@@ -13,6 +13,7 @@ class Post extends Model
 	protected $guarded = false;  // НУЖНО! либо false, либо [] (Защита массового присвоения) Чтобы мы могли изменять данные в табл.
 	protected $table = 'posts'; // LV и так привязывает, но так принято
 	protected $withCount = ['likedUsers']; // отношения, которые должны быть посчитаны
+	protected $with = ['category']; // ДОБАВИЛИ: посты будут приходить уже с категорией
 
 	public function tags()
 	{
